@@ -1,5 +1,6 @@
 import { CommandRunner, Command, Option } from 'nest-commander';
 import { ICommandOptions } from './dto/commander.dto';
+import { PuppeteerService } from 'src/puppeteer/puppeteer.service';
 
 
 @Command({
@@ -11,8 +12,14 @@ import { ICommandOptions } from './dto/commander.dto';
     // },
 })
 export class CommanderService extends CommandRunner {
+    constructor(private puppeteer: PuppeteerService) {
+        super();
+    }
+
     async run(passedParams: string[], options?: Record<string, any>): Promise<void> {
-        if(!options.category) return console.log("argument category is required: -c | --category <category name>");
+        const category = options.category || null;
+        if (!category) return console.log("argument category is required: -c | --category <category name>");
+        return this.puppeteer.scrapeCoursera(category);
     }
     @Option({
         flags: '-c, --category [category]',
@@ -20,5 +27,5 @@ export class CommanderService extends CommandRunner {
     })
     parseString(val: string): string {
         return val;
-    } 
+    }
 }
