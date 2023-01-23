@@ -28,25 +28,10 @@ export class PuppeteerService {
                 deviceScaleFactor: 1,
             })
             page.setDefaultNavigationTimeout(0);
-            // await page.setRequestInterception(true);
-            // page.on('request', (req) => {
-            //     if (req.resourceType() == 'stylesheet' || req.resourceType() == 'font' || req.resourceType() == 'image') {
-            //         req.abort();
-            //     }
-            //     else {
-            //         req.continue();
-            //     }
-            // });
-            await page.goto(getUrl(category), { waitUntil: 'networkidle2', timeout: 300000 })
-                .then(() => {
-                    console.log("redir successful")
-                }).catch(err => {
-                    console.log("redir err:", err)
-                });
+            await page.goto(getUrl(category), { waitUntil: 'networkidle2', timeout: 300000 });
             const courses: IJSON[] = [];
             let nextDisabled = false;
             while (!nextDisabled) {
-                console.log("next")
                 await page.waitForSelector(this.resSel, {
                     visible: true,
                 });
@@ -75,7 +60,7 @@ export class PuppeteerService {
                 ]);
             }
             await browser.close();
-            json2csv(courses,category)
+            json2csv(courses, category);
         } catch (err) {
             return new Error('Internal server error.');
         }

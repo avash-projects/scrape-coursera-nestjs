@@ -12,7 +12,7 @@ export class AppController {
     }
 
     @Post('/scrape')
-    @Render('index')
+    @Render('scrape')
     scrape(@Body() dto: ScrapeDto) {
         return this.appService.scrape(dto);
     }

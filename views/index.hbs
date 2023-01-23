@@ -69,12 +69,12 @@
 
 <body>
 
-  <h3>Scrape Courses</h3>
+  <h3>Scrape Coursera</h3>
 
   <div>
     <form action="/scrape" method="POST">
-      <input type="text" id="query" name="query" placeholder="Search for courses.." required>
-      <input id="submit" type="submit" value="Submit">
+      <input type="text" id="query" name="query" placeholder="Enter courses.." required>
+      <input id="submitbtn" type="submit" value="scrape data">
     </form>
   </div>
   <div>
@@ -91,13 +91,14 @@
       {{/each}}
     </table>
   </div>
-  <script>
-    document.getElementById("#submit").addEventListener("submit", function (e) {
-      e.target.value = "scraping...";
-      e.disabled = true;
-      return 1
-    });
-  </script>
+  {{!-- <script>
+    const button = document.querySelector('#submitbtn');
+    const disableButton = () => {
+      button.textContent = 'scraping....'
+      button.disabled = true;
+    };
+    button.addEventListener('click', disableButton);
+  </script> --}}
 </body>
 
 </html>
